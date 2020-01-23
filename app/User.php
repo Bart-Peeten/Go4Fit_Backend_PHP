@@ -59,10 +59,10 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\ManyToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->belongsToMany(Reservation::class);
+        return $this->belongsToMany(Reservation::class, 'reservations_user');
     }
 }

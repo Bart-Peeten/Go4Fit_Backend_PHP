@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\ReservationService;
 use App\Reservation;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
 
@@ -14,11 +16,17 @@ class ReservationController extends Controller
     protected $user;
 
     /**
-     * ReservationController constructor
+     * @var
      */
-    public function __construct()
+    private $service;
+
+    /**
+     * ReservationController constructor
+     * @param ReservationService $reservationService
+     */
+    public function __construct(ReservationService $reservationService)
     {
-        $this->user = JWTAuth::parseToken()->authenticate();
+        $this->service = $reservationService;
     }
 
     /**
@@ -33,29 +41,18 @@ class ReservationController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function addNewReservation(Request $request)
     {
         $this->validate($request, [
             'date' => 'required',
             'time' => 'required',
         ]);
 
-        $reservation = new Reservation();
-        $reservation->date = $request->date;
-        $reservation->time = $request->time;
+        $reservation = $this->service->add($request);
 
-        if ($this->user->reservation()->save($task))
-            return response()->json([
-                'success' => true,
-                'task' => $task
-            ]);
-        else
-            return response()->json([
-                'success' => false,
-                'message' => 'Sorry, task could not be added.'
-            ], 500);
+        return response()->json($reservation, 201);
     }
 }

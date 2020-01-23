@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use JWTAuth;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,7 +19,7 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(Request $request)
     {
@@ -39,8 +41,8 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return JsonResponse
+     * @throws ValidationException
      */
     public function logout(Request $request)
     {
@@ -65,13 +67,15 @@ class AuthController extends Controller
 
     /**
      * @param RegistrationFormRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function register(RegistrationFormRequest $request)
     {
         $user = new User();
         $user->name = $request->name;
+        $user->firstname = $request->firstname;
         $user->email = $request->email;
+        $user->telephone = $request->telephone;
         $user->password = bcrypt($request->password);
         $user->save();
 

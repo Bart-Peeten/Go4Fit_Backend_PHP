@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\Request;
 
 class Reservation extends Model
 {
@@ -16,11 +18,13 @@ class Reservation extends Model
      */
     protected $guarded = [];
 
+    protected $fillable = ['date', 'time'];
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\ManyToMany
+     * @return BelongsToMany
      */
     public function reservations()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'reservations_user');
     }
 }
