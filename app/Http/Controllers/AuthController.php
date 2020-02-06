@@ -8,7 +8,7 @@ use JWTAuth;
 use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\Http\Requests\RegistrationFormRequest;
+use App\Http\Requests\RegistrationRequest;
 
 class AuthController extends Controller
 {
@@ -69,15 +69,13 @@ class AuthController extends Controller
      * @param RegistrationFormRequest $request
      * @return JsonResponse
      */
-    public function register(RegistrationFormRequest $request)
+    public function register(RegistrationRequest $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->firstname = $request->firstname;
-        $user->email = $request->email;
-        $user->telephone = $request->telephone;
-        $user->password = bcrypt($request->password);
-        $user->save();
+        $data = $request->validated();
+
+        $data['password'] = bcrypt($data['password']);
+
+        $user = User::create($data);
 
         if ($this->loginAfterSignUp) {
             return $this->login($request);
