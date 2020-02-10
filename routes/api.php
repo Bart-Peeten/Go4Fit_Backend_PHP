@@ -18,6 +18,7 @@ Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::get('users', 'UsersController@index');
 Route::get('users/{id}', 'UsersController@findById');
+Route::post('users', 'UsersController@findByEmail');
 Route::post('reservation', 'ReservationController@addNewReservation');
 
 Route::group(['middleware' => 'auth.jwt'], function () {

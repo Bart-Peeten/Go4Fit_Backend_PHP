@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use JWTAuth;
@@ -16,6 +17,20 @@ class AuthController extends Controller
      * @var bool
      */
     public $loginAfterSignUp = true;
+
+    /**
+     * @var
+     */
+    private $service;
+
+    /**
+     * AuthController constructor
+     * @param UserService $userService
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->service = $userService;
+    }
 
     /**
      * @param Request $request
@@ -71,21 +86,37 @@ class AuthController extends Controller
      */
     public function register(RegistrationFormRequest $request)
     {
+        if (User::where('email', $request->email)->exists()) {
+            //email exists in user table
+            return response()->json([
+                'success' => false,
+                'message' => "Gebruiker bestaat al."
+            ], 401);
+        }
+
         $user = new User();
         $user->name = $request->name;
         $user->firstname = $request->firstname;
         $user->email = $request->email;
         $user->telephone = $request->telephone;
         $user->password = bcrypt($request->password);
-        $user->save();
+
+        if ($request->role != null) {
+            $user->role = $request->role;
+        } else {
+            $user->role = "user";
+        }
+
+        $result = $user->save();
 
         if ($this->loginAfterSignUp) {
             return $this->login($request);
         }
 
         return response()->json([
-            'success'   =>  true,
-            'data'      =>  $user
+            'success' => true,
+            'data' => $user,
+            'result' => $result
         ], 200);
     }
 }
