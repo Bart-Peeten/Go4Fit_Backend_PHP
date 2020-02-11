@@ -9,7 +9,7 @@ use JWTAuth;
 use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\Http\Requests\RegistrationFormRequest;
+use App\Http\Requests\RegistrationRequest;
 
 class AuthController extends Controller
 {
@@ -17,20 +17,6 @@ class AuthController extends Controller
      * @var bool
      */
     public $loginAfterSignUp = true;
-
-    /**
-     * @var
-     */
-    private $service;
-
-    /**
-     * AuthController constructor
-     * @param UserService $userService
-     */
-    public function __construct(UserService $userService)
-    {
-        $this->service = $userService;
-    }
 
     /**
      * @param Request $request
@@ -84,39 +70,21 @@ class AuthController extends Controller
      * @param RegistrationFormRequest $request
      * @return JsonResponse
      */
-    public function register(RegistrationFormRequest $request)
+    public function register(RegistrationRequest $request)
     {
-        if (User::where('email', $request->email)->exists()) {
-            //email exists in user table
-            return response()->json([
-                'success' => false,
-                'message' => "Gebruiker bestaat al."
-            ], 401);
-        }
+        $data = $request->validated();
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->firstname = $request->firstname;
-        $user->email = $request->email;
-        $user->telephone = $request->telephone;
-        $user->password = bcrypt($request->password);
+        $data['password'] = bcrypt($data['password']);
 
-        if ($request->role != null) {
-            $user->role = $request->role;
-        } else {
-            $user->role = "user";
-        }
-
-        $result = $user->save();
+        $user = User::create($data);
 
         if ($this->loginAfterSignUp) {
             return $this->login($request);
         }
 
         return response()->json([
-            'success' => true,
-            'data' => $user,
-            'result' => $result
+            'success'   =>  true,
+            'data'      =>  $user
         ], 200);
     }
 }
