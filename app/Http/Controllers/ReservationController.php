@@ -46,7 +46,13 @@ class ReservationController extends Controller
      */
     public function getReservationsByDateAndTime(Request $request)
     {
-        $participants = [];
+        $this->validate($request, [
+            'date' => 'required',
+            'time' => 'required',
+        ]);
+
+        $participants = $this->service->getReservationsByDateAndTime($request);
+
         return response()->json($participants, 201);
     }
 

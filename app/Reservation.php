@@ -21,9 +21,10 @@ class Reservation extends Model
     protected $fillable = ['date', 'time'];
 
     /**
+     * The user that belongs to the reservation
      * @return BelongsToMany
      */
-    public function reservations()
+    public function users()
     {
         return $this->belongsToMany(User::class, 'reservations_user');
     }

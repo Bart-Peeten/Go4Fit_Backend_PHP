@@ -19,7 +19,15 @@ class ReservationService
         return $result;
     }
 
-    public function findByDateAndTime(String $date, String $time)
+    public function getReservationsByDateAndTime(Request $request)
+    {
+        $reservation = $this->findByDateAndTime($request->date, $request->time);
+        $result = Reservation::find($reservation->id)->users;
+
+        return $result;
+    }
+
+    private function findByDateAndTime(String $date, String $time)
     {
         $reservation = DB::table('reservations')
             ->where('date', $date)
