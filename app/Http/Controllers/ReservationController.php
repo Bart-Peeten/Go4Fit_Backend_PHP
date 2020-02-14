@@ -41,10 +41,99 @@ class ReservationController extends Controller
 
     /**
      * @param Request $request
+     * @return JsonResponse of list with participants
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getReservationsByDateAndTime(Request $request)
+    {
+        $participants = [];
+        return response()->json($participants, 201);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse of list with participants
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getUsersForGivenWeek(Request $request)
+    {
+        $participants = array();
+        return response()->json($participants, 201);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse of list with participants
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getCancellationsForGivenWeek(Request $request)
+    {
+        $cancellations = array(array());
+        return response()->json($cancellations, 201);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse of list with participants
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getNumberOfReservationsForGivenWeek(Request $request)
+    {
+        $numberOfReservations = array();
+        return response()->json($numberOfReservations, 201);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse of list with participants
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getIsParticipantReservedForGivenWeek(Request $request)
+    {
+        $isParticipantReserved = array();
+        return response()->json($isParticipantReserved, 201);
+    }
+
+    /**
+     * @param Request $request
      * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function addNewReservation(Request $request)
+    {
+        $this->validate($request, [
+            'date' => 'required',
+            'time' => 'required',
+        ]);
+
+        $reservation = $this->service->add($request);
+
+        return response()->json($reservation, 201);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function addReservationWithOnlyFullName(Request $request)
+    {
+        $this->validate($request, [
+            'date' => 'required',
+            'time' => 'required',
+        ]);
+
+        $reservation = $this->service->add($request);
+
+        return response()->json($reservation, 201);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function deletereservation(Request $request)
     {
         $this->validate($request, [
             'date' => 'required',

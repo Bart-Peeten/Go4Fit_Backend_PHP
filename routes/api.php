@@ -12,14 +12,25 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
+|--------------------------------------------------------------------------
 */
 
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
+
 Route::get('users', 'UsersController@index');
 Route::get('users/{id}', 'UsersController@findById');
 Route::post('users', 'UsersController@findByEmail');
+
+Route::get('reservations', 'ReservationController@index');
+Route::get('reservationNames', 'ReservationController@getReservationsByDateAndTime');
+Route::get('weekusers', 'ReservationController@getUsersForGivenWeek');
+Route::get('cancellations', 'ReservationController@getCancellationsForGivenWeek');
+Route::get('weekreservaties', 'ReservationController@getNumberOfReservationsForGivenWeek');
+Route::get('isParticipantReserved', 'ReservationController@getIsParticipantReservedForGivenWeek');
 Route::post('reservation', 'ReservationController@addNewReservation');
+Route::post('reservationwithonlyfullname', 'ReservationController@addReservationWithOnlyFullName');
+Route::delete('deletereservation', 'ReservationController@deletereservation');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'AuthController@logout');
