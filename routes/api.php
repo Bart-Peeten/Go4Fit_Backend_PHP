@@ -20,7 +20,7 @@ Route::post('register', 'AuthController@register');
 
 Route::get('users', 'UsersController@index');
 Route::get('users/{id}', 'UsersController@findById');
-Route::post('users', 'UsersController@findByEmail');
+Route::get('userbyemail', 'UsersController@findByEmail');
 
 Route::get('reservations', 'ReservationController@index');
 Route::get('reservationNames', 'ReservationController@getReservationsByDateAndTime');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\ReservationService;
 use App\Reservation;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
@@ -110,11 +111,15 @@ class ReservationController extends Controller
         $this->validate($request, [
             'date' => 'required',
             'time' => 'required',
+            'email' => 'required'
         ]);
 
-        $reservation = $this->service->add($request);
+        $user = User::where('email', $request->email)
+            ->first();
 
-        return response()->json($reservation, 201);
+//        $reservation = $this->service->add($request);
+
+        return response()->json($user['id'], 201);
     }
 
     /**
