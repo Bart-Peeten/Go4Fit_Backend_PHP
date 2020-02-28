@@ -130,7 +130,7 @@ class ReservationController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse
+//     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function deletereservation(Request $request) {
@@ -142,6 +142,6 @@ class ReservationController extends Controller
 
         $this->service->deleteReservation($request);
 
-        return response()->json($reservation, 201);
+//        return response()->json($reservation, 201);
     }
 }
