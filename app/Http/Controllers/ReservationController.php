@@ -32,9 +32,7 @@ class ReservationController extends Controller
      * @return mixed
      */
     public function index() {
-        $reservations = Reservation::all();
-
-        return $reservations;
+        return Reservation::all();
     }
 
     /**
@@ -59,8 +57,9 @@ class ReservationController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function getUsersForGivenWeek(Request $request) {
-        $participants = array();
-        return response()->json($participants, 201);
+        $participantsList = $this->service->findUsersForGivenWeek($request);
+
+        return response()->json($participantsList, 201);
     }
 
     /**

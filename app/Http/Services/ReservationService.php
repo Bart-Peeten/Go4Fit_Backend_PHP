@@ -29,6 +29,25 @@ class ReservationService
         return $result;
     }
 
+    public function findUsersForGivenWeek(Request $request)
+    {
+        $index = 0;
+        $timeSlotsInWeek = $this->fillTimes();
+        $dates = array();
+        array_push($dates, $request->tuesday);
+        array_push($dates, $request->wednesday);
+        array_push($dates, $request->thursday);
+        array_push($dates, $request->sunday);
+
+        foreach ($dates as $date)
+        {
+            for ($i = 0; $i < count($timeSlotsInWeek); $i++)
+            {
+                $result = $this->findByDateAndTime($date, $timeSlotsInWeek[$index][$i]);
+            }
+        }
+    }
+
     public function addNewReservation(Request $request): Reservation
     {
         // First check if the reservation exist.
@@ -94,5 +113,15 @@ class ReservationService
             ->get();
 
         return $reservation;
+    }
+
+    private function fillTimes()
+    {
+        $tuesday = ["19:00", "20:00"];
+        $wednesday = ["09:00", "19:00", "20:00"];
+        $thursday = ["19:00"];
+        $sunday = ["08:00", "09:00", "10:00"];
+
+        return [$tuesday, $wednesday, $thursday, $sunday];
     }
 }
