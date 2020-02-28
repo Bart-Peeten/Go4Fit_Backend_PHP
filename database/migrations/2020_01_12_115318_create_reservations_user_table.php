@@ -17,10 +17,10 @@ class CreateReservationsUserTable extends Migration
             $table->engine = 'MyISAM';
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('reservations_id')->unsigned();
+            $table->integer('reservation_id')->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('reservations_id')->references('id')->on('reservations');
+            $table->foreign('reservation_id')->references('id')->on('reservations');
         });
     }
 
