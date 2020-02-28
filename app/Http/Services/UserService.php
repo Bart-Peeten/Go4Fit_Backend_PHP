@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class UserService
 {
+    /**
+     * ToDo: This should be refactored to a UserRepository, so the code is more splitup and easier to make changes.
+     */
     public function findByEmail(String $email): User {
         $user = User::where('email', $email)
             ->first();
