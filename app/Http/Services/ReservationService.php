@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Http\Repositories\ReservationRepository;
 use App\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,16 +15,23 @@ class ReservationService
     private $userService;
 
     /**
+     * @var
+     */
+    private $reservationRepository;
+
+    /**
      * ReservationService constructor.
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService,
+                                ReservationRepository $reservationRepository)
     {
         $this->userService = $userService;
+        $this->reservationRepository = $reservationRepository;
     }
 
     public function getReservationsByDateAndTime(Request $request): Reservation
     {
-        $reservation = $this->findByDateAndTime($request->date, $request->time);
+        $reservation = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         $result = Reservation::find($reservation->id)->users;
 
         return $result;
@@ -43,7 +51,7 @@ class ReservationService
         {
             for ($i = 0; $i < count($timeSlotsInWeek); $i++)
             {
-                $result = $this->findByDateAndTime($date, $timeSlotsInWeek[$index][$i]);
+                $result = $this->reservationRepository->findByDateAndTime($date, $timeSlotsInWeek[$index][$i]);
             }
         }
     }
@@ -52,7 +60,7 @@ class ReservationService
     {
         // First check if the reservation exist.
         $result = null;
-        $reservation = $this->findByDateAndTime($request->date, $request->time);
+        $reservation = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         // Then get the user by email, to get the user id.
         $user = $this->userService->findByEmail($request->email);
 
@@ -74,7 +82,7 @@ class ReservationService
     {
         $result = null;
         // First check if the reservation exist.
-        $reservation = $this->findByDateAndTime($request->date, $request->time);
+        $reservation = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         // Query for the user by his first and lastname.
         $userId = $this->userService->findByFirstAndLastname($request->firstname, $request->lastname);
 
@@ -96,23 +104,13 @@ class ReservationService
         // First get the users id.
         $userId = $this->userService->findUserIdByEmail($request->email);
         // find the reservation by date and time.
-        $reservation = $this->findByDateAndTime($request->date, $request->time);
+        $reservation = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
 
         // The following code needs in a transaction as we will delete data.
         DB::transaction( function () use ($reservation, $userId) {
             // Detach the user from the reservation.
             $reservation->users()->detach($userId);
         });
-    }
-
-    public function findByDateAndTime(String $date, String $time): Reservation
-    {
-        $reservation = DB::table('reservations')
-            ->where('date', $date)
-            ->where('time', $time)
-            ->get();
-
-        return $reservation;
     }
 
     private function fillTimes()
