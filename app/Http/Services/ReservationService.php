@@ -62,42 +62,30 @@ class ReservationService
         // Then get the user by email, to get the user id.
         $user = $this->userService->findByEmail($request->email);
 
-        if ($reservationList->count() == 0) {
-            // The following code needs in a transaction as we will create or update data.
-            $result = DB::transaction(function () use ($request, $reservationList, $user) {
-                // If there are no reservations, create this reservation.
-                $reservation = Reservation::create($request->all());
-                return $reservation->users()->attach($user->id);
-            });
-        } else {
-            $result = DB::transaction(function () use ($request, $reservationList, $user) {
-                $reservation = Reservation::findOrFail($reservationList[0]->id);
-                return $reservation->users()->attach($user->id);
-            });
-        }
-
-        return $result;
+        return $this->addUserToReservation($request, $reservationList, $user);
     }
 
-    public function addNewReservationByFullName(Request $request): Reservation
+    public function addNewReservationByFullName(Request $request)
     {
         $result = null;
         // First check if the reservation exist.
-        $reservation = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
+        $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         // Query for the user by his first and lastname.
-        $userId = $this->userService->findByFirstAndLastname($request->firstname, $request->lastname);
+        $user = $this->userService->findByFirstAndLastname($request->firstname, $request->lastname);
 
-        // The following code needs in a transaction as we will create or update data.
-        $result = DB::transaction(function () use ($request, $reservation, $userId) {
-            // If there are no reservations, create this reservation.
-            if ($reservation->count() == 0) {
-                $reservation = Reservation::create($request->all());
+        $reservation = Reservation::findOrFail($reservationList[0]->id);
+        $usersForReservation = $this->reservationRepository->findUsersForReservation($reservation);
+
+        foreach ($usersForReservation as $item)
+        {
+            if ($item->email == $user->email)
+            {
+                return [];
             }
-            // Add the user with his id to the array of the Reservation.
-            $result = $reservation->users()->attach($userId->id);
-        });
+        }
 
-        return $result;
+        return $this->addUserToReservation($request, $reservationList, $user);
+
     }
 
     public function deleteReservation(Request $request): void
@@ -122,5 +110,30 @@ class ReservationService
         $sunday = ["08:00", "09:00", "10:00"];
 
         return [$tuesday, $wednesday, $thursday, $sunday];
+    }
+
+    /**
+     * @param Request $request
+     * @param \Illuminate\Support\Collection $reservationList
+     * @param \App\User $user
+     * @return mixed
+     */
+    private function addUserToReservation(Request $request, \Illuminate\Support\Collection $reservationList, \App\User $user)
+    {
+        if ($reservationList->count() == 0) {
+            // The following code needs in a transaction as we will create or update data.
+            $result = DB::transaction(function () use ($request, $reservationList, $user) {
+                // If there are no reservations, create this reservation.
+                $reservation = Reservation::create($request->all());
+                return $reservation->users()->attach($user->id);
+            });
+        } else {
+            $result = DB::transaction(function () use ($request, $reservationList, $user) {
+                $reservation = Reservation::findOrFail($reservationList[0]->id);
+                return $reservation->users()->attach($user->id);
+            });
+        }
+
+        return $result;
     }
 }

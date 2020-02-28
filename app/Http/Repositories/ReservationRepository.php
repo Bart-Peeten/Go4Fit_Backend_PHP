@@ -18,4 +18,17 @@ class ReservationRepository
 
         return $reservation;
     }
+
+    public function findUsersByDateAndTime(String $date, String $time)
+    {
+        $reservationList = findByDateAndTime($date, $time);
+        $reservation = Reservation::findOrFail($reservationList[0]->id);
+
+        return $reservation->users()->get();
+    }
+
+    public function findUsersForReservation($reservation)
+    {
+        return $reservation->users()->get();
+    }
 }

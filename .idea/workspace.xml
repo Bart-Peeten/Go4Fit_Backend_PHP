@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25776e8e-bcd0-4396-acf4-77d5335bc64e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Repositories/ReservationRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReservationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReservationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/ReservationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Repositories/ReservationRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Services/ReservationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/ReservationService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Services/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/UserService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_12_115318_create_reservations_user_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_12_115318_create_reservations_user_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,6 +198,10 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="377" y="172" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1280.777@0.23.1280.777" timestamp="1582834374335" />
+    <state x="0" y="23" width="478" height="777" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1582923888088">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state x="0" y="23" width="478" height="777" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.23.1280.777@0.23.1280.777" timestamp="1582923888088" />
     <state x="153" y="249" width="1080" height="577" key="DiffContextDialog" timestamp="1582830241186">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
@@ -212,9 +214,9 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="356" y="134" key="MultipleFileMergeDialog/0.23.1280.777@0.23.1280.777" timestamp="1581411713325" />
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1582919951021">
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1582924209319">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1582919951021" />
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1582924209319" />
   </component>
 </project>

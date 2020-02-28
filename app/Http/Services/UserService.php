@@ -23,9 +23,9 @@ class UserService
         $user = DB::table('users')
             ->where('name', $lastname)
             ->where('firstname', $firstname)
-            ->value('id');
+            ->first();
 
-        return $user;
+        return User::findOrFail($user->id);
     }
 
     public function findUserIdByEmail($email) {
