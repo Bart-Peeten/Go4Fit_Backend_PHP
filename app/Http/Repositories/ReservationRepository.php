@@ -29,6 +29,8 @@ class ReservationRepository
 
     public function findUsersForReservation($reservation)
     {
+//        $cleanReservation = Reservation::findOrFail($reservation);
         return $reservation->users()->get();
+//        return $cleanReservation;
     }
 }
