@@ -74,7 +74,7 @@ class ReservationController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse of list with participants
+     * @return JsonResponse of list with numbers of participants.
      * @throws \Illuminate\Validation\ValidationException
      */
     public function getNumberOfReservationsForGivenWeek(Request $request) {
@@ -84,7 +84,7 @@ class ReservationController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse of list with participants
+     * @return JsonResponse of list with booleans if participants is reserved.
      * @throws \Illuminate\Validation\ValidationException
      */
     public function getIsParticipantReservedForGivenWeek(Request $request) {
