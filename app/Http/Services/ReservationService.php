@@ -104,7 +104,7 @@ class ReservationService
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         $reservation = Reservation::findOrFail($reservationList[0]->id);
 
-        if ($request->isAllowed) {
+        if ($request->isAllowed == "true") {
             // The following code needs in a transaction as we will delete data.
             DB::transaction(function () use ($reservation, $user) {
                 // Detach the user from the reservation.
@@ -115,7 +115,7 @@ class ReservationService
             DB::transaction(function () use ($reservation, $user) {
                 // Detach the user from the reservation.
                 $reservation->users()->detach($user->id);
-                $reservation->deleteReservation()->attach($user->id);
+                $reservation->deletedUsers()->attach($user->id);
             });
         }
 //        return $user->id;
