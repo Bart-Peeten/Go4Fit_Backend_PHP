@@ -108,13 +108,14 @@ class ReservationService
             // The following code needs in a transaction as we will delete data.
             DB::transaction(function () use ($reservation, $user) {
                 // Detach the user from the reservation.
-                $reservation->users()->detach($user->id);
+                $reservation->users()->detach();
             });
         } else {
             // The following code needs in a transaction as we will delete data.
             DB::transaction(function () use ($reservation, $user) {
                 // Detach the user from the reservation.
-                $reservation->users()->detach($user->id);
+                $reservation->users()->detach();
+                // TODO: check if the reservation is already in the pivot table.
                 $reservation->deletedUsers()->attach($user->id);
             });
         }
