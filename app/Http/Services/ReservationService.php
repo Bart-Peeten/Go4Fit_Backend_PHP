@@ -21,6 +21,8 @@ class ReservationService
 
     /**
      * ReservationService constructor.
+     * @param UserService $userService
+     * @param ReservationRepository $reservationRepository
      */
     public function __construct(UserService $userService,
                                 ReservationRepository $reservationRepository)
