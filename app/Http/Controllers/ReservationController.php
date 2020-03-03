@@ -136,11 +136,13 @@ class ReservationController extends Controller
         $this->validate($request, [
             'date' => 'required',
             'time' => 'required',
-            'email' => 'required',
+            'firstname' => 'required',
+            'name' => 'required',
+            'isAllowed' => 'required'
         ]);
 
-        $this->service->deleteReservation($request);
+        $reservation = $this->service->deleteReservation($request);
 
-//        return response()->json($reservation, 201);
+        return response()->json($reservation, 201);
     }
 }

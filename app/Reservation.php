@@ -28,4 +28,13 @@ class Reservation extends Model
     {
         return $this->belongsToMany(User::class, 'reservations_user');
     }
+
+    /**
+     * The deleted users that belongs to the reservation
+     * @return BelongsToMany
+     */
+    public function deletedUsers()
+    {
+        return $this->belongsToMany(User::class, 'deleted_reservations');
+    }
 }

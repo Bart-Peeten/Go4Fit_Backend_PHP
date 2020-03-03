@@ -31,11 +31,16 @@ class ReservationService
 
     public function getReservationsByDateAndTime(Request $request)
     {
+        $fullNames = array();
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         $reservation = Reservation::findOrFail($reservationList[0]->id);
         $result = Reservation::find($reservation->id)->users;
+        for ($i = 0; $i < count($result); $i++) {
+            $fullName = $result[$i]->firstname." ".$result[$i]->name;
+            array_push($fullNames, $fullName);
+        }
 
-        return $result;
+        return $fullNames;
     }
 
     public function findUsersForGivenWeek(Request $request)
@@ -51,15 +56,10 @@ class ReservationService
         for ($i = 0; $i < count($dates); $i++) {
             for ($j = 0; $j < count($timeSlotsInWeek[$i]); $j++) {
                 $result = $this->reservationRepository->findByDateAndTime($dates[$j], $timeSlotsInWeek[$i][$j]);
-//                array_push($resultArray, $date, $timeSlotsInWeek[$index][$i]);
                 $names = $this->findNamesForReservation($result);
-//                $resultArray[$date] = $index;
                 array_push($resultArray, $names);
             }
-//            array_push($resultArray, $dates[$i]);
         }
-
-//        $names = $this->findNamesForReservation($resultArray[0]);
 
         return $resultArray;
     }
@@ -99,28 +99,26 @@ class ReservationService
     public function deleteReservation(Request $request)
     {
         // First get the users id.
-        $userId = $this->userService->findUserIdByEmail($request->email);
+        $user = $this->userService->findByFirstAndLastname($request->firstname, $request->name);
         // find the reservation by date and time.
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         $reservation = Reservation::findOrFail($reservationList[0]->id);
 
-        // The following code needs in a transaction as we will delete data.
-        DB::transaction(function () use ($reservation, $userId) {
-            // Detach the user from the reservation.
-            $reservation->users()->detach($userId);
-        });
-//        return $reservation;
-    }
-
-    private function fillTimes()
-    {
-        $tuesday = ["19:00", "20:00"];
-        $wednesday = ["09:00", "19:00", "20:00"];
-        $thursday = ["19:00"];
-        $sunday = ["08:00", "09:00", "10:00"];
-
-        return [$tuesday, $wednesday, $thursday, $sunday];
-//        return [$tuesday, $wednesday];
+        if ($request->isAllowed) {
+            // The following code needs in a transaction as we will delete data.
+            DB::transaction(function () use ($reservation, $user) {
+                // Detach the user from the reservation.
+                $reservation->users()->detach($user->id);
+            });
+        } else {
+            // The following code needs in a transaction as we will delete data.
+            DB::transaction(function () use ($reservation, $user) {
+                // Detach the user from the reservation.
+                $reservation->users()->detach($user->id);
+                $reservation->deleteReservation()->attach($user->id);
+            });
+        }
+//        return $user->id;
     }
 
     /**
@@ -164,5 +162,16 @@ class ReservationService
         }
 
         return $usersList;
+    }
+
+    private function fillTimes()
+    {
+        $tuesday = ["19:00", "20:00"];
+        $wednesday = ["09:00", "19:00", "20:00"];
+        $thursday = ["19:00"];
+        $sunday = ["08:00", "09:00", "10:00"];
+
+        return [$tuesday, $wednesday, $thursday, $sunday];
+//        return [$tuesday, $wednesday];
     }
 }
