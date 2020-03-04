@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Http\Repositories\ReservationRepository;
 use App\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class ReservationService
@@ -38,7 +39,7 @@ class ReservationService
         $reservation = Reservation::findOrFail($reservationList[0]->id);
         $result = Reservation::find($reservation->id)->users;
         for ($i = 0; $i < count($result); $i++) {
-            $fullName = $result[$i]->firstname." ".$result[$i]->name;
+            $fullName = $result[$i]->firstname . " " . $result[$i]->name;
             array_push($fullNames, $fullName);
         }
 
@@ -48,12 +49,7 @@ class ReservationService
     public function findUsersForGivenWeek(Request $request)
     {
         $timeSlotsInWeek = $this->fillTimes();
-        $dates = array();
-        $names = null;
-        array_push($dates, $request->tuesday);
-        array_push($dates, $request->wednesday);
-        array_push($dates, $request->thursday);
-        array_push($dates, $request->sunday);
+        $dates = $this->prepareWeekDates($request);
         $resultArray = array();
         for ($i = 0; $i < count($dates); $i++) {
             for ($j = 0; $j < count($timeSlotsInWeek[$i]); $j++) {
@@ -66,10 +62,54 @@ class ReservationService
         return $resultArray;
     }
 
+    public function getNumbersOfReservationsForGivenWeek(Request $request)
+    {
+        $numbersArray = array();
+        $resultArray = $this->findUsersForGivenWeek($request);
+        for ($i = 0; $i < count($resultArray); $i++) {
+            array_push($numbersArray, count($resultArray[$i]));
+        }
+
+        return $numbersArray;
+    }
+
+    public function findCanceledUsersForGivenWeek(Request $request)
+    {
+        $timeSlotsInWeek = $this->fillTimes();
+        $dates = $this->prepareWeekDates($request);
+        $resultArray = array();
+        for ($i = 0; $i < count($dates); $i++) {
+            for ($j = 0; $j < count($timeSlotsInWeek[$i]); $j++) {
+                $result = $this->reservationRepository->findByDateAndTime($dates[$j], $timeSlotsInWeek[$i][$j]);
+                $names = $this->findDeletedUsersForReservation($result);
+                array_push($resultArray, $names);
+            }
+        }
+
+        return $resultArray;
+    }
+
+    public function getIsParticipantReservedForGivenWeek(Request $request)
+    {
+        $isReservedArray = array();
+        $resultArray = $this->findUsersForGivenWeek($request);
+
+        for ($i = 0; $i < count($resultArray); $i++) {
+            if (empty($resultArray[$i])) {
+                array_push($isReservedArray, false);
+            } elseif ($resultArray[$i]->firstname == $request->firstname && $resultArray[$i]->name == $request->name) {
+                array_push($isReservedArray, true);
+            } else {
+                array_push($isReservedArray, false);
+            }
+        }
+
+        return $isReservedArray;
+    }
+
     public function addNewReservation(Request $request)
     {
         // First check if the reservation exist.
-        $result = null;
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         // Then get the user by email, to get the user id.
         $user = $this->userService->findByEmail($request->email);
@@ -79,7 +119,6 @@ class ReservationService
 
     public function addNewReservationByFullName(Request $request)
     {
-        $result = null;
         // First check if the reservation exist.
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         // Query for the user by his first and lastname.
@@ -110,27 +149,26 @@ class ReservationService
             // The following code needs in a transaction as we will delete data.
             DB::transaction(function () use ($reservation, $user) {
                 // Detach the user from the reservation.
-                $reservation->users()->detach();
+                $reservation->users()->detach($user);
             });
         } else {
             // The following code needs in a transaction as we will delete data.
             DB::transaction(function () use ($reservation, $user) {
                 // Detach the user from the reservation.
-                $reservation->users()->detach();
+                $reservation->users()->detach($user);
                 // TODO: check if the reservation is already in the pivot table.
                 $reservation->deletedUsers()->attach($user->id);
             });
         }
-//        return $user->id;
     }
 
     /**
      * @param Request $request
-     * @param \Illuminate\Support\Collection $reservationList
+     * @param Collection $reservationList
      * @param \App\User $user
      * @return mixed
      */
-    private function addUserToReservation(Request $request, \Illuminate\Support\Collection $reservationList, \App\User $user)
+    private function addUserToReservation(Request $request, Collection $reservationList, \App\User $user)
     {
         if ($reservationList->count() == 0) {
             // The following code needs in a transaction as we will create or update data.
@@ -149,7 +187,7 @@ class ReservationService
         return $result;
     }
 
-    private function findNamesForReservation(\Illuminate\Support\Collection $reservationList)
+    private function findNamesForReservation(Collection $reservationList)
     {
         $usersList = array();
         $users = null;
@@ -158,7 +196,25 @@ class ReservationService
             $users = $this->reservationRepository->findUsersForReservation($reservation);
             if (count($users) > 0) {
                 foreach ($users as $user) {
-                    $fullName = $user->firstname." ".$user->name;
+                    $fullName = $user->firstname . " " . $user->name;
+                    array_push($usersList, $fullName);
+                }
+            }
+        }
+
+        return $usersList;
+    }
+
+    private function findDeletedUsersForReservation(Collection $reservationList)
+    {
+        $usersList = array();
+        $users = null;
+        if (count($reservationList) > 0) {
+            $reservation = Reservation::findOrFail($reservationList[0]->id);
+            $users = $this->reservationRepository->findDeletedUsersForReservation($reservation);
+            if (count($users) > 0) {
+                foreach ($users as $user) {
+                    $fullName = $user->firstname . " " . $user->name;
                     array_push($usersList, $fullName);
                 }
             }
@@ -175,6 +231,19 @@ class ReservationService
         $sunday = ["08:00", "09:00", "10:00"];
 
         return [$tuesday, $wednesday, $thursday, $sunday];
-//        return [$tuesday, $wednesday];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function prepareWeekDates(Request $request): array
+    {
+        $dates = array();
+        array_push($dates, $request->tuesday);
+        array_push($dates, $request->wednesday);
+        array_push($dates, $request->thursday);
+        array_push($dates, $request->sunday);
+        return $dates;
     }
 }

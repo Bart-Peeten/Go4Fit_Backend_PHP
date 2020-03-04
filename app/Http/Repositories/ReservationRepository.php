@@ -27,10 +27,13 @@ class ReservationRepository
         return $reservation->users()->get();
     }
 
-    public function findUsersForReservation($reservation)
+    public function findUsersForReservation(Reservation $reservation)
     {
-//        $cleanReservation = Reservation::findOrFail($reservation);
         return $reservation->users()->get();
-//        return $cleanReservation;
+    }
+
+    public function findDeletedUsersForReservation(Reservation $reservation)
+    {
+        return $reservation->deletedUsers()->get();
     }
 }

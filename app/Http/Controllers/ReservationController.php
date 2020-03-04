@@ -24,14 +24,16 @@ class ReservationController extends Controller
      * ReservationController constructor
      * @param ReservationService $reservationService
      */
-    public function __construct(ReservationService $reservationService) {
+    public function __construct(ReservationService $reservationService)
+    {
         $this->service = $reservationService;
     }
 
     /**
      * @return mixed
      */
-    public function index() {
+    public function index()
+    {
         return Reservation::all();
     }
 
@@ -40,7 +42,8 @@ class ReservationController extends Controller
      * @return JsonResponse of list with participants
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getReservationsByDateAndTime(Request $request) {
+    public function getReservationsByDateAndTime(Request $request)
+    {
         $this->validate($request, [
             'date' => 'required',
             'time' => 'required',
@@ -56,7 +59,8 @@ class ReservationController extends Controller
      * @return JsonResponse of list with participants
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getUsersForGivenWeek(Request $request) {
+    public function getUsersForGivenWeek(Request $request)
+    {
         $participantsList = $this->service->findUsersForGivenWeek($request);
 
         return response()->json($participantsList, 201);
@@ -64,22 +68,26 @@ class ReservationController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse of list with participants
+     * @return JsonResponse of list with numbers of participants.
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getCancellationsForGivenWeek(Request $request) {
-        $cancellations = array(array());
-        return response()->json($cancellations, 201);
+    public function getNumberOfReservationsForGivenWeek(Request $request)
+    {
+        $numberOfReservations = $this->service->getNumbersOfReservationsForGivenWeek($request);
+
+        return response()->json($numberOfReservations, 201);
     }
 
     /**
      * @param Request $request
-     * @return JsonResponse of list with numbers of participants.
+     * @return JsonResponse of list with participants
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getNumberOfReservationsForGivenWeek(Request $request) {
-        $numberOfReservations = array();
-        return response()->json($numberOfReservations, 201);
+    public function getCancellationsForGivenWeek(Request $request)
+    {
+        $cancellations = $this->service->findCanceledUsersForGivenWeek($request);
+
+        return response()->json($cancellations, 201);
     }
 
     /**
@@ -87,8 +95,15 @@ class ReservationController extends Controller
      * @return JsonResponse of list with booleans if participants is reserved.
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getIsParticipantReservedForGivenWeek(Request $request) {
-        $isParticipantReserved = array();
+    public function getIsParticipantReservedForGivenWeek(Request $request)
+    {
+        $this->validate($request, [
+            'firstname' => 'required',
+            'name' => 'required',
+        ]);
+
+        $isParticipantReserved = $this->service->getIsParticipantReservedForGivenWeek($request);
+
         return response()->json($isParticipantReserved, 201);
     }
 
@@ -97,7 +112,8 @@ class ReservationController extends Controller
      * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function addNewReservation(Request $request) {
+    public function addNewReservation(Request $request)
+    {
         $this->validate($request, [
             'date' => 'required',
             'time' => 'required',
@@ -114,7 +130,8 @@ class ReservationController extends Controller
      * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function addReservationWithOnlyFullName(Request $request) {
+    public function addReservationWithOnlyFullName(Request $request)
+    {
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
@@ -129,10 +146,11 @@ class ReservationController extends Controller
 
     /**
      * @param Request $request
-//     * @return JsonResponse
+     * //     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function deletereservation(Request $request) {
+    public function deletereservation(Request $request)
+    {
         $this->validate($request, [
             'date' => 'required',
             'time' => 'required',
