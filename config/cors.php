@@ -21,6 +21,7 @@ return [
 
         'allow_origins' => [
             'https://go4fit.netlify.com',
+            '*'
         ],
 
         'allow_methods' => [
@@ -33,7 +34,10 @@ return [
         ],
 
         'allow_headers' => [
-            '*'
+            'Content-Type',
+            'X-Auth-Token',
+            'Origin',
+            'Authorization',
         ],
 
         'expose_headers' => [
