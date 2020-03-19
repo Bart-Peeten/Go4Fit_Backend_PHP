@@ -20,7 +20,8 @@ return [
         'allow_credentials' => false,
 
         'allow_origins' => [
-            '*',
+            'https://go4fit.netlify.com',
+            '*'
         ],
 
         'allow_methods' => [
