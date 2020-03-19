@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use JWTAuth;
 use App\User;
@@ -73,17 +74,37 @@ class AuthController extends Controller
      * @param RegistrationFormRequest $request
      * @return JsonResponse
      */
-    public function register(RegistrationRequest $request)
+    public function register(Request $request)
     {
-        $data = $request->validated();
+//        $data = $request->validated();
 
-        $data['password'] = bcrypt($data['password']);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'firstname' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'telephone' => 'required',
+            'password' => 'required|string|min:6|max:10',
+        ]);
 
-        $user = User::create($data);
-
-        if ($this->loginAfterSignUp) {
-            return $this->login($request);
+        if ($validator->fails()){
+           return response()->json([
+               'status' => 'error',
+               'message' => $validator->messages()
+           ], 200);
         }
+
+//        $data['password'] = bcrypt($data['password']);
+//
+//        $user = User::create($data);
+//
+//        if ($this->loginAfterSignUp) {
+//            return $this->login($request);
+//        }
+
+        $user = new User;
+        $user->fill($request->all());
+        $user->password = bcrypt($request->password);
+        $user->save();
 
         return response()->json([
             'success'   =>  true,
