@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25776e8e-bcd0-4396-acf4-77d5335bc64e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Go4Fit_Backend_php.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Go4Fit_Backend_php.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/cors.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,16 +132,21 @@
       <path value="$PROJECT_DIR$/vendor/psr/container" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-cors" />
+      <path value="$PROJECT_DIR$/vendor/asm89/stack-cors" />
+      <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-cors" />
     </include_path>
   </component>
   <component name="ProjectId" id="1WDl1BXFU7MGpUaXgGJcf0i36Fg" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -147,18 +157,6 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -171,7 +169,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="71fc8e94-1d86-414a-b670-c3c917bf38af" name="Default Changelist" comment="" />
+      <changelist id="25776e8e-bcd0-4396-acf4-77d5335bc64e" name="Default Changelist" comment="" />
       <created>1578691829048</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -184,6 +182,7 @@
       <workItem from="1582226095748" duration="1891000" />
       <workItem from="1582833363568" duration="106000" />
       <workItem from="1582833518575" duration="1826000" />
+      <workItem from="1584728079162" duration="456000" />
     </task>
     <servers />
   </component>
@@ -213,6 +212,9 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="328" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1582833375671">
       <screen x="0" y="23" width="1280" height="777" />
@@ -238,9 +240,9 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="356" y="134" key="MultipleFileMergeDialog/0.23.1280.777@0.23.1280.777" timestamp="1581411713325" />
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1583263887523">
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1585056433573">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1583263887523" />
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1585056433573" />
   </component>
 </project>
