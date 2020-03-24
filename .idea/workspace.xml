@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25776e8e-bcd0-4396-acf4-77d5335bc64e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Go4Fit_Backend_php.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Go4Fit_Backend_php.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/cors.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +176,7 @@
       <workItem from="1582226095748" duration="1891000" />
       <workItem from="1582833363568" duration="106000" />
       <workItem from="1582833518575" duration="1826000" />
-      <workItem from="1584728079162" duration="456000" />
+      <workItem from="1584728079162" duration="1173000" />
     </task>
     <servers />
   </component>
