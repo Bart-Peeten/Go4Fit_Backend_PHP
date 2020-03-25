@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'AuthController@login');
-Route::post('register', 'AuthController@register');
+//Route::post('register', 'AuthController@register');
 
 Route::get('users', 'UsersController@index');
 Route::get('users/{id}', 'UsersController@findById');
@@ -35,4 +35,8 @@ Route::delete('deletereservation', 'ReservationController@deletereservation');
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'AuthController@logout');
     Route::get('reservations', 'ReservationController@index');
+});
+
+Route::group(['middleware' => 'cors'], function () {
+    Route::post('register', 'AuthController@register');
 });

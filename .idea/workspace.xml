@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25776e8e-bcd0-4396-acf4-77d5335bc64e" name="Default Changelist" comment="" />
+    <list default="true" id="25776e8e-bcd0-4396-acf4-77d5335bc64e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Cors.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +181,7 @@
       <workItem from="1582226095748" duration="1891000" />
       <workItem from="1582833363568" duration="106000" />
       <workItem from="1582833518575" duration="1826000" />
-      <workItem from="1584728079162" duration="4196000" />
+      <workItem from="1584728079162" duration="6347000" />
     </task>
     <servers />
   </component>
@@ -208,6 +215,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="227" y="86" key="#CLI_Interpreters" timestamp="1585141481935">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state x="227" y="86" key="#CLI_Interpreters/0.23.1280.777@0.23.1280.777" timestamp="1585141481935" />
     <state x="328" y="154" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1582833375671">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
@@ -220,10 +231,10 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="0" y="23" width="478" height="777" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.23.1280.777@0.23.1280.777" timestamp="1582923888088" />
-    <state x="408" y="301" width="463" height="247" key="ComposerInitDialogKey" timestamp="1585060054651">
+    <state x="408" y="301" width="463" height="247" key="ComposerInitDialogKey" timestamp="1585141483564">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="408" y="301" width="463" height="247" key="ComposerInitDialogKey/0.23.1280.777@0.23.1280.777" timestamp="1585060054651" />
+    <state x="408" y="301" width="463" height="247" key="ComposerInitDialogKey/0.23.1280.777@0.23.1280.777" timestamp="1585141483564" />
     <state x="153" y="249" width="1080" height="577" key="DiffContextDialog" timestamp="1582830241186">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
@@ -236,9 +247,9 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="356" y="134" key="MultipleFileMergeDialog/0.23.1280.777@0.23.1280.777" timestamp="1581411713325" />
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1585083623538">
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1585141853711">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1585083623538" />
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1585141853711" />
   </component>
 </project>
