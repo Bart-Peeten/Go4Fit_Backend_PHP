@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+//        Route::middleware('cors')->group(function (){
+//
+//        });
+
         //
     }
 }
