@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25776e8e-bcd0-4396-acf4-77d5335bc64e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Go4Fit_Backend_php.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Go4Fit_Backend_php.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Cors.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +186,7 @@
       <workItem from="1582226095748" duration="1891000" />
       <workItem from="1582833363568" duration="106000" />
       <workItem from="1582833518575" duration="1826000" />
-      <workItem from="1584728079162" duration="10560000" />
+      <workItem from="1584728079162" duration="11226000" />
     </task>
     <servers />
   </component>
@@ -255,10 +252,10 @@
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="356" y="134" key="MultipleFileMergeDialog/0.23.1280.777@0.23.1280.777" timestamp="1581411713325" />
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1585824560447">
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup" timestamp="1585825051271">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/-1680.23.1680.1027/0.23.1280.777@0.23.1280.777" timestamp="1585824560447" />
+    <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/-1680.23.1680.1027/0.23.1280.777@0.23.1280.777" timestamp="1585825051271" />
     <state x="303" y="121" width="672" height="678" key="search.everywhere.popup/0.23.1280.777@0.23.1280.777" timestamp="1585141853711" />
   </component>
 </project>
