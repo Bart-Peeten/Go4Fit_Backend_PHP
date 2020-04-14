@@ -93,14 +93,21 @@ class ReservationService
     {
         $isReservedArray = array();
         $resultArray = $this->findUsersForGivenWeek($request);
+        $fullName = $request->firstname." ".$request->name;
 
         for ($i = 0; $i < count($resultArray); $i++) {
             if (empty($resultArray[$i])) {
                 array_push($isReservedArray, false);
-            } elseif ($resultArray[$i]->firstname == $request->firstname && $resultArray[$i]->name == $request->name) {
-                array_push($isReservedArray, true);
             } else {
-                array_push($isReservedArray, false);
+                for ($j = 0; $j < count($resultArray[$i]); $j++) {
+                    if (strcmp($resultArray[$i][$j], $fullName) == 0) {
+                        array_push($isReservedArray, true);
+                        break;
+                    } else {
+                        array_push($isReservedArray, false);
+                        break;
+                    }
+                }
             }
         }
 
