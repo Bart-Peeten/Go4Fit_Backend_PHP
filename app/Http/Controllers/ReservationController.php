@@ -6,6 +6,7 @@ use App\Http\Services\ReservationService;
 use App\Reservation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\JWTAuth;
 
 class ReservationController extends Controller
@@ -114,11 +115,18 @@ class ReservationController extends Controller
      */
     public function addNewReservation(Request $request)
     {
-        $this->validate($request, [
-            'date' => 'required',
-            'time' => 'required',
-            'email' => 'required'
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|string',
+            'time' => 'required|string',
+            'email' => 'required|email'
         ]);
+
+        if ($validator->fails()){
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->messages()
+            ], 200);
+        }
 
         $reservation = $this->service->addNewReservation($request);
 
