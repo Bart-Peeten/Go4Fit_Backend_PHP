@@ -45,10 +45,17 @@ class ReservationController extends Controller
      */
     public function getReservationsByDateAndTime(Request $request)
     {
-        $this->validate($request, [
-            'date' => 'required',
-            'time' => 'required',
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|string',
+            'time' => 'required|string'
         ]);
+
+        if ($validator->fails()){
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->messages()
+            ], 200);
+        }
 
         $participants = $this->service->getReservationsByDateAndTime($request);
 
