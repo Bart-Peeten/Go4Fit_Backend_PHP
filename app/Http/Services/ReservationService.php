@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Http\Repositories\ReservationRepository;
 use App\Reservation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -116,6 +117,9 @@ class ReservationService
 
     public function addNewReservation(Request $request)
     {
+        $request->date = $this->parseDateFromString($request->date);
+        $request->time = $this->parseTimeFromString($request->time);
+
         // First check if the reservation exist.
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         // Then get the user by email, to get the user id.
@@ -252,5 +256,15 @@ class ReservationService
         array_push($dates, $request->thursday);
         array_push($dates, $request->sunday);
         return $dates;
+    }
+
+    private function parseDateFromString($date)
+    {
+        return Carbon::parse($date);
+    }
+
+    private function parseTimeFromString($time)
+    {
+        return Carbon::parse($time);
     }
 }

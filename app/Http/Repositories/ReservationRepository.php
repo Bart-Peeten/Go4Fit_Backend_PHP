@@ -5,11 +5,12 @@ namespace App\Http\Repositories;
 
 
 use App\Reservation;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ReservationRepository
 {
-    public function findByDateAndTime(String $date, String $time)
+    public function findByDateAndTime(Carbon $date, Carbon $time)
     {
         $reservation = DB::table('reservations')
             ->where('date', $date)
