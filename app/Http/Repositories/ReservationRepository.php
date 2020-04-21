@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReservationRepository
 {
-    public function findByDateAndTime(Carbon $date, Carbon $time)
+    public function findByDateAndTime(string $date, string $time)
     {
         $reservation = DB::table('reservations')
             ->where('date', $date)

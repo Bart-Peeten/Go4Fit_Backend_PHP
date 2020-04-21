@@ -117,8 +117,8 @@ class ReservationService
 
     public function addNewReservation(Request $request)
     {
-        $request->date = $this->parseDateFromString($request->date);
-        $request->time = $this->parseTimeFromString($request->time);
+//        $request->date = $this->parseDateFromString($request->date);
+//        $request->time = $this->parseTimeFromString($request->time);
 
         // First check if the reservation exist.
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
