@@ -37,7 +37,8 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'name' => 'production',
+            'channels' => ['single', 'stderr', 'syslog', 'errorlog'],
             'ignore_exceptions' => false,
         ],
 
