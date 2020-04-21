@@ -186,8 +186,8 @@ class ReservationService
             $result = DB::transaction(function () use ($request, $reservationList, $user) {
                 // If there are no reservations, create this reservation.
                 $reservation = Reservation::create($request->all());
-//                return $reservation->users()->attach($user->id);
-                return $reservation;
+                return $reservation->users()->attach($user->id);
+//                return $reservation;
             });
         } else {
             $result = DB::transaction(function () use ($request, $reservationList, $user) {
