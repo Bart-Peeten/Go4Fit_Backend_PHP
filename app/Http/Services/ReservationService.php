@@ -117,9 +117,6 @@ class ReservationService
 
     public function addNewReservation(Request $request)
     {
-//        $request->date = $this->parseDateFromString($request->date);
-//        $request->time = $this->parseTimeFromString($request->time);
-
         // First check if the reservation exist.
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         // Then get the user by email, to get the user id.
@@ -135,14 +132,15 @@ class ReservationService
         // Query for the user by his first and lastname.
         $user = $this->userService->findByFirstAndLastname($request->firstname, $request->lastname);
 
-        $reservation = Reservation::findOrFail($reservationList[0]->id);
-        $usersForReservation = $this->reservationRepository->findUsersForReservation($reservation);
-
-        foreach ($usersForReservation as $item) {
-            if ($item->email == $user->email) {
-                return [];
-            }
-        }
+        // TODO: Remove this commented code.
+//        $reservation = Reservation::findOrFail($reservationList[0]->id);
+//        $usersForReservation = $this->reservationRepository->findUsersForReservation($reservation);
+//
+//        foreach ($usersForReservation as $item) {
+//            if ($item->email == $user->email) {
+//                return [];
+//            }
+//        }
 
         return $this->addUserToReservation($request, $reservationList, $user);
 
