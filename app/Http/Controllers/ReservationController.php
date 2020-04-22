@@ -170,7 +170,7 @@ class ReservationController extends Controller
             'date' => 'required',
             'time' => 'required',
             'firstname' => 'required',
-            'name' => 'required',
+            'lastname' => 'required',
             'isAllowed' => 'required'
         ]);
 

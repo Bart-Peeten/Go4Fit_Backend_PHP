@@ -149,7 +149,7 @@ class ReservationService
     public function deleteReservation(Request $request)
     {
         // First get the users id.
-        $user = $this->userService->findByFirstAndLastname($request->firstname, $request->name);
+        $user = $this->userService->findByFirstAndLastname($request->firstname, $request->lastname);
         // find the reservation by date and time.
         $reservationList = $this->reservationRepository->findByDateAndTime($request->date, $request->time);
         $reservation = Reservation::findOrFail($reservationList[0]->id);
