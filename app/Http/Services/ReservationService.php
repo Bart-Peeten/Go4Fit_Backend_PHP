@@ -81,7 +81,7 @@ class ReservationService
         $resultArray = array();
         for ($i = 0; $i < count($dates); $i++) {
             for ($j = 0; $j < count($timeSlotsInWeek[$i]); $j++) {
-                $result = $this->reservationRepository->findByDateAndTime($dates[$j], $timeSlotsInWeek[$i][$j]);
+                $result = $this->reservationRepository->findByDateAndTime($dates[$i], $timeSlotsInWeek[$i][$j]);
                 $names = $this->findDeletedUsersForReservation($result);
                 array_push($resultArray, $names);
             }
