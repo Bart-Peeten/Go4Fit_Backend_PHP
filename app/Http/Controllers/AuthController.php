@@ -103,7 +103,11 @@ class AuthController extends Controller
 
         $user = new User;
         $user->fill($request->all());
-        $user->role = $request->role;
+        if ($request->role == null) {
+            $user->role = "ROLE_USER";
+        }else {
+            $user->role = $request->role;
+        }
         $user->password = bcrypt($request->password);
         $user->save();
 
